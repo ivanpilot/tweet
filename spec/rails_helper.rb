@@ -82,4 +82,7 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  #generate a file to persist failing tests
+  config.example_status_persistence_file_path = 'spec/failing_tests.txt'
 end

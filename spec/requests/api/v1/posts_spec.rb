@@ -39,7 +39,7 @@ RSpec.describe 'Post Api', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/could not find post/)
+        expect(response.body).to match(/Post not found/)
       end
     end
 

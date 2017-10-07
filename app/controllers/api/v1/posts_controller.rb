@@ -12,11 +12,11 @@ class Api::V1::PostsController < ApplicationController
 
   def show
     @post = Post.find_by(id: params[:id])
-    # if @post
-    #   render json: @post, status: '200'
-    # else
-    #
-    # end
+    if @post
+      render json: @post, status: '200'
+    else
+      render json: { error: 'Post not found.' }, status: :not_found
+    end
   end
 
   private
