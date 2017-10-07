@@ -34,12 +34,14 @@ gem 'kaminari', '~> 1.0', '>= 1.0.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails', '~> 0.3.6'
   gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'faker', '~> 1.8', '>= 1.8.4'
-  gem 'factory_girl', '~> 4.8'
+  gem 'factory_girl_rails', '~> 4.8'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
+  gem 'coderay', '~> 1.1', '>= 1.1.1'
 end
 
 group :development do

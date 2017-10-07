@@ -10,6 +10,15 @@ class Api::V1::PostsController < ApplicationController
     render json: @post, status: :created
   end
 
+  def show
+    @post = Post.find_by(id: params[:id])
+    # if @post
+    #   render json: @post, status: '200'
+    # else
+    #
+    # end
+  end
+
   private
 
   def post_params
