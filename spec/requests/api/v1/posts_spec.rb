@@ -45,7 +45,20 @@ RSpec.describe 'Post Api', type: :request do
   end
 
   describe 'POST /api/posts' do
-    
+    let(:valid_attributes) { {title:"Title", body:"Body"} }
+
+    context 'when post request is valid' do
+      before { post "/api/posts", params: valid_attributes }
+
+      it 'creates a new post' do
+        expect(json.title).to eq('Title')
+        expect(json.body).to eq('Body')
+      end
+
+      it 'returns a status code 201' do
+        expect(reponse).to have_http_status(201)
+      end
+    end
   end
 
 end
