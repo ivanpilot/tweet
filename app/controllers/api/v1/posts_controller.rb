@@ -2,7 +2,7 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    render json: @posts, status: '200'
+    render json: @posts, status: :ok
   end
 
   def create
@@ -13,7 +13,7 @@ class Api::V1::PostsController < ApplicationController
   def show
     @post = Post.find_by(id: params[:id])
     if @post
-      render json: @post, status: '200'
+      render json: @post, status: :ok
     else
       render json: { error: 'Post not found.' }, status: :not_found
     end

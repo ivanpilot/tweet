@@ -42,7 +42,10 @@ RSpec.describe 'Post Api', type: :request do
         expect(response.body).to match(/Post not found/)
       end
     end
+  end
 
+  describe 'POST /api/posts' do
+    
   end
 
 end
