@@ -14,7 +14,7 @@ class ApiConstraints
   def check_headers(headers)
     accept = headers[:accept]
     accept && accept.include?("application/vnd.#{version}+json")
-    @default || req.headers['Accept'].include?("application/vnd.example.v#{@version}")
+    @default || req.headers['Accept'].include?("application/vnd.tweet.v#{@version}")
   end
 
 end
