@@ -30,6 +30,7 @@ gem 'knock', '~> 2.1', '>= 2.1.1'
 gem 'active_model_serializers', '~> 0.10.6'
 gem 'friendly_id', '~> 5.2', '>= 5.2.3'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
+gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

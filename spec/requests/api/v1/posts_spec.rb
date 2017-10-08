@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Post Api', type: :request do
+RSpec.describe 'Post', type: :request do
   let!(:posts) { FactoryGirl.create_list(:post, 10) }
-  # let(:post_first) { posts.first }
   let(:post_id) { posts.first.id }
 
   describe 'GET /api/posts' do
