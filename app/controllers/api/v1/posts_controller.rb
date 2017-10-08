@@ -23,6 +23,26 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post && @post.update(post_params)
+      render json: @post, status: :no_content
+    else
+      render json: { error: 'Post not found.' }, status: :not_found
+    end
+  end
+
+  def destroy
+    @post = Post.find_by(id: params[:id])
+    if !@post
+      render json: { error: 'Post not found.' }, status: :not_found
+    else
+      @post.delete
+      render json: @post, status: :no_content
+      @post = nil
+    end
+  end
+
   private
 
   def post_params

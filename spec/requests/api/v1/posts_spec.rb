@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Post Api', type: :request do
   let!(:posts) { FactoryGirl.create_list(:post, 10) }
+  # let(:post_first) { posts.first }
   let(:post_id) { posts.first.id }
 
   describe 'GET /api/posts' do
@@ -88,12 +89,15 @@ RSpec.describe 'Post Api', type: :request do
   end
 
   describe 'PUT /api/posts/:id' do
-    let(:valid_attributes) { {title: "Updated Title"} }
+    let(:post_first) { posts.first }
 
     context 'when the record exists' do
-      before { put "/api/posts/#{post_id}", params: valid_attributes }
+      before { put "/api/posts/#{post_first.id}", params: {post: {title: "Updated Title"} }}
 
       it 'updates the record' do
+        post_first.reload
+        expect(post_first.title).to eq('Updated Title')
+        expect(post_first.body).to eq("#{post_first.body}")
       end
 
       it 'returns a status code of 204' do
@@ -102,7 +106,7 @@ RSpec.describe 'Post Api', type: :request do
     end
 
     context 'when the record does not exists' do
-      before { put "api/posts/1000", params: valid_attributes }
+      before { put "/api/posts/10000", params: {post: {title: "Updated Title"} }}
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -115,9 +119,17 @@ RSpec.describe 'Post Api', type: :request do
   end
 
   describe 'DELETE api/posts/:id' do
-    before { delete "/api/post/#{post_id}" }
+    before { delete "/api/posts/#{post_id}" }
+
+    context 'when the record exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
 
     context 'when the record does not exists' do
+      before { delete "/api/posts/100000" }
+
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
@@ -127,11 +139,7 @@ RSpec.describe 'Post Api', type: :request do
       end
     end
 
-    context 'when the record exists' do
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
-      end
-    end
+
 
   end
 
