@@ -6,13 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# FactoryGirl.create_list(:user, 10)
-# FactoryGirl.create_list(:post, 20)
-
 10.times do
-  Post.create(
-    itle { Faker::Lorem.word}
-    body { Faker::Lorem.sentence}
-    association :user
-  )
+  FactoryGirl.create(:post)
 end
