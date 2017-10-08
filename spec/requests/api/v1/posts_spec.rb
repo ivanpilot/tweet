@@ -45,7 +45,7 @@ RSpec.describe 'Post', type: :request do
   end
 
   describe 'POST /api/posts' do
-    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body"}} }
+    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", user_id: post_id}} }
 
     context 'when post request is valid' do
       before { post "/api/posts", params: valid_attributes }
