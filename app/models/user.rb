@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :posts
 
   validates :username, :email, uniqueness: true
-  #validates :password, presence: true
+  validates :password, presence: true
 
 
 end
