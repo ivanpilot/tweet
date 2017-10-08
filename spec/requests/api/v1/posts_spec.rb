@@ -45,43 +45,43 @@ RSpec.describe 'Post Api', type: :request do
   end
 
   describe 'POST /api/posts' do
-    let(:valid_attributes) { {title:"Valid post", body:"Valid post body"} }
+    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body"}} }
 
     context 'when post request is valid' do
       before { post "/api/posts", params: valid_attributes }
 
       it 'creates a new post' do
-        expect(json.title).to eq('Valid post')
-        expect(json.body).to eq('Valid post body')
+        expect(json["title"]).to eq('Valid post')
+        expect(json["body"]).to eq('Valid post body')
       end
 
       it 'returns a status code 201' do
-        expect(reponse).to have_http_status(201)
+        expect(response).to have_http_status(201)
       end
     end
 
     context 'when post request is invalid' do
       describe 'because title is missing' do
-        before { post "/api/posts", params: {body: "Invalid post"} }
+        before { post "/api/posts", params: { post: {body: "Invalid post"} } }
 
         it 'returns a status code of 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/Validation failed: title can't be blank/)
+          expect(response.body).to match(/Validation failed/)
         end
       end
 
       describe 'because body is missing' do
-        before { post "/api/posts", params: {title: "Invalid post"} }
+        before { post "/api/posts", params: { post: {body: "Invalid post"} } }
 
         it 'returns a status code of 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/Validation failed: body can't be blank/)
+          expect(response.body).to match(/Validation failed/)
         end
       end
     end
@@ -112,6 +112,27 @@ RSpec.describe 'Post Api', type: :request do
         expect(response.body).to match(/Post not found/)
       end
     end
+  end
+
+  describe 'DELETE api/posts/:id' do
+    before { delete "/api/post/#{post_id}" }
+
+    context 'when the record does not exists' do
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Post not found/)
+      end
+    end
+
+    context 'when the record exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
   end
 
 end
