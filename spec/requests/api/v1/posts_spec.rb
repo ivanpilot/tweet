@@ -100,8 +100,12 @@ RSpec.describe 'Post Api', type: :request do
         expect(post_first.body).to eq("#{post_first.body}")
       end
 
+      it 'returns the updated record' do
+        expect(json["title"]).to eq('Updated Title')
+      end
+
       it 'returns a status code of 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -123,7 +127,7 @@ RSpec.describe 'Post Api', type: :request do
 
     context 'when the record exists' do
       it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(200)
       end
     end
 

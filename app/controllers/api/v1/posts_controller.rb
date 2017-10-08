@@ -26,7 +26,7 @@ class Api::V1::PostsController < ApplicationController
   def update
     @post = Post.find_by(id: params[:id])
     if @post && @post.update(post_params)
-      render json: @post, status: :no_content
+      render json: @post, status: :ok
     else
       render json: { error: 'Post not found.' }, status: :not_found
     end
@@ -38,8 +38,8 @@ class Api::V1::PostsController < ApplicationController
       render json: { error: 'Post not found.' }, status: :not_found
     else
       @post.delete
-      render json: @post, status: :no_content
       @post = nil
+      head(:ok)
     end
   end
 
