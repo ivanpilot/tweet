@@ -1,10 +1,18 @@
-example_id                                    | status | run_time        |
---------------------------------------------- | ------ | --------------- |
-./spec/requests/api/v1/posts_spec.rb[1:1:1]   | passed | 0.67711 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:1:2]   | passed | 0.03016 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:2:1:1] | passed | 0.04625 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:2:1:2] | passed | 0.03654 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:2:2:1] | passed | 0.04019 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:2:2:2] | passed | 0.02551 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:3:1:1] | failed | 0.04016 seconds |
-./spec/requests/api/v1/posts_spec.rb[1:3:1:2] | failed | 0.02972 seconds |
+example_id                                      | status | run_time        |
+----------------------------------------------- | ------ | --------------- |
+./spec/requests/api/v1/posts_spec.rb[1:1:1]     | passed | 0.63675 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:1:2]     | passed | 0.02938 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:2:1:1]   | passed | 0.04353 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:2:1:2]   | passed | 0.02808 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:2:2:1]   | passed | 0.04264 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:2:2:2]   | passed | 0.04894 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:3:1:1]   | failed | 0.03658 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:3:1:2]   | failed | 0.03435 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:3:2:1:1] | failed | 0.03532 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:3:2:1:2] | failed | 0.03338 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:3:2:2:1] | failed | 0.0338 seconds  |
+./spec/requests/api/v1/posts_spec.rb[1:3:2:2:2] | failed | 0.02595 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:4:1:1]   | failed | 0.03403 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:4:1:2]   | failed | 0.03274 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:4:2:1]   | failed | 0.03684 seconds |
+./spec/requests/api/v1/posts_spec.rb[1:4:2:2]   | failed | 0.03165 seconds |

@@ -45,18 +45,71 @@ RSpec.describe 'Post Api', type: :request do
   end
 
   describe 'POST /api/posts' do
-    let(:valid_attributes) { {title:"Title", body:"Body"} }
+    let(:valid_attributes) { {title:"Valid post", body:"Valid post body"} }
 
     context 'when post request is valid' do
       before { post "/api/posts", params: valid_attributes }
 
       it 'creates a new post' do
-        expect(json.title).to eq('Title')
-        expect(json.body).to eq('Body')
+        expect(json.title).to eq('Valid post')
+        expect(json.body).to eq('Valid post body')
       end
 
       it 'returns a status code 201' do
         expect(reponse).to have_http_status(201)
+      end
+    end
+
+    context 'when post request is invalid' do
+      describe 'because title is missing' do
+        before { post "/api/posts", params: {body: "Invalid post"} }
+
+        it 'returns a status code of 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'returns validation failure message' do
+          expect(response.body).to match(/Validation failed: title can't be blank/)
+        end
+      end
+
+      describe 'because body is missing' do
+        before { post "/api/posts", params: {title: "Invalid post"} }
+
+        it 'returns a status code of 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'returns validation failure message' do
+          expect(response.body).to match(/Validation failed: body can't be blank/)
+        end
+      end
+    end
+  end
+
+  describe 'PUT /api/posts/:id' do
+    let(:valid_attributes) { {title: "Updated Title"} }
+
+    context 'when the record exists' do
+      before { put "/api/posts/#{post_id}", params: valid_attributes }
+
+      it 'updates the record' do
+      end
+
+      it 'returns a status code of 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the record does not exists' do
+      before { put "api/posts/1000", params: valid_attributes }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Post not found/)
       end
     end
   end
