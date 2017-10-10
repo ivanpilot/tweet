@@ -1,43 +1,33 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :find_post, only: [:show, :update, :destroy]
 
   def index
     @posts = Post.all
-    #render json: @posts, status: :ok
     json_response(@posts)
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      #render json: @post, status: :created
-      json_response(@posts, :create)
+      json_response(@post, :created)
     else
       render json: { error: "Validation failed" }, status: :unprocessable_entity
     end
   end
 
   def show
-    # begin
-      @post = Post.find(params[:id])
-      render json: @post, status: :ok
-    # rescue StandardError => e
-    #   render json: { error: e }, status: :not_found
-  # rescue ActiveRecord::RecordNotFound
-  #     render json: { error: "test" }, status: :not_found
-    # end
+    json_response(@post)
   end
 
   def update
-    @post = Post.find_by(id: params[:id])
     if @post && @post.update(post_params)
-      render json: @post, status: :ok
+      json_response(@post)
     else
       render json: { error: 'Post not found.' }, status: :not_found
     end
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
     if !@post
       render json: { error: 'Post not found.' }, status: :not_found
     else
@@ -51,5 +41,9 @@ class Api::V1::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :user_id)
+  end
+
+  def find_post
+    @post = Post.find(params[:id])
   end
 end

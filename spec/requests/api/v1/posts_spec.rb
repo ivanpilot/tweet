@@ -39,7 +39,7 @@ RSpec.describe 'Post', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Post not found/)
+        expect(response.body).to match(/not found/)
       end
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe 'Post', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Post not found/)
+        expect(response.body).to match(/not found/)
       end
     end
   end
@@ -138,7 +138,7 @@ RSpec.describe 'Post', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Post not found/)
+        expect(response.body).to match(/not found/)
       end
     end
 
