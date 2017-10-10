@@ -17,26 +17,14 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
-    # @post = Post.find(id: params[:id])
-    # if @post
-    #   render json: @post, status: :ok
-    # else
-    #   render json: { error: 'Post not found.' }, status: :not_found
-    # end
-    #begin
+    # begin
       @post = Post.find(params[:id])
       render json: @post, status: :ok
-      #json_response(@posts)
-    # rescue => e
-    #  render json: { error: 'test' }, status: :not_found
+    # rescue StandardError => e
+    #   render json: { error: e }, status: :not_found
   # rescue ActiveRecord::RecordNotFound
   #     render json: { error: "test" }, status: :not_found
-  #   end
-#   rescue ActiveRecord::RecordNotFound => e
-#   render json: {
-#     error: e.to_s
-#   }, status: :not_found
-# end
+    # end
   end
 
   def update
