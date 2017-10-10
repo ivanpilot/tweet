@@ -7,12 +7,9 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    if @post.save
-      json_response(@post, :created)
-    else
-      render json: { error: "Validation failed" }, status: :unprocessable_entity
-    end
+    #use create! instead of create so it raises an invalid error
+    @post = Post.create!(post_params)
+    json_response(@post, :created)
   end
 
   def show
@@ -20,11 +17,8 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def update
-    if @post && @post.update(post_params)
-      json_response(@post)
-    else
-      render json: { error: 'Post not found.' }, status: :not_found
-    end
+    @post.update!(post_params)
+    json_response(@post)
   end
 
   def destroy

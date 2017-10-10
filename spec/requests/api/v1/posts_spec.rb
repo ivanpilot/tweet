@@ -69,7 +69,7 @@ RSpec.describe 'Post', type: :request do
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/Validation failed/)
+          expect(response.body).to match(/validation failed/)
         end
       end
 
@@ -81,7 +81,7 @@ RSpec.describe 'Post', type: :request do
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/Validation failed/)
+          expect(response.body).to match(/validation failed/)
         end
       end
     end
