@@ -13,8 +13,10 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
     json_response(@post)
   end
+
 
   def update
     @post.update!(post_params)
