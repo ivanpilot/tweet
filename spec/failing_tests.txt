@@ -1,5 +1,7 @@
 example_id                                           | status | run_time        |
 ---------------------------------------------------- | ------ | --------------- |
+./spec/auth/authenticate_user_spec.rb[1:1:1:1]       | passed | 0.49537 seconds |
+./spec/auth/authenticate_user_spec.rb[1:1:2:1]       | passed | 0.00462 seconds |
 ./spec/auth/authorize_api_request_spec.rb[1:1:1:1]   | passed | 0.43923 seconds |
 ./spec/auth/authorize_api_request_spec.rb[1:1:2:1:1] | passed | 0.00328 seconds |
 ./spec/auth/authorize_api_request_spec.rb[1:1:2:2:1] | passed | 0.00287 seconds |

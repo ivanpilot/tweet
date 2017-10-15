@@ -6,6 +6,9 @@ module ExceptionHandler
   class AuthenticationError < StandardError; end
   class MissingToken < StandardError; end
   class InvalidToken < StandardError; end
+  class MissingEmail < StandardError; end
+  class MissingPassword < StandardError; end
+  class InvalidEmailPassword < StandardError; end
 
 
   included do
@@ -32,6 +35,18 @@ module ExceptionHandler
     rescue_from ExceptionHandler::InvalidToken do |e|
       json_response({error: "Invalid token"}, :unprocessable_entity)
     end
+
+    rescue_from ExceptionHandler::MissingEmail do |e|
+      json_response({error: "Missing email"}, :unprocessable_entity)
+    end
+
+    rescue_from ExceptionHandler::MissingPassword do |e|
+      json_response({error: "Missing password"}, :unprocessable_entity)
+    end
+
+    # rescue_from ExceptionHandler::InvalidEmailPassword do |e|
+    #   json_response({error: "Invalid token"}, :unprocessable_entity)
+    # end
 
   end
 
