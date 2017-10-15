@@ -10,7 +10,6 @@ class JsonWebToken
   def self.decode(token)
     body = JWT.decode(token, HMAC_SECRET)[0]
     HashWithIndifferentAccess.new body
-  # raise custom error to be handled by custom handler
   rescue JWT::ExpiredSignature, JWT::VerificationError => e
     raise ExceptionHandler::ExpiredSignature, e.message
   end

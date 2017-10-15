@@ -26,11 +26,11 @@ module ExceptionHandler
     end
 
     rescue_from ExceptionHandler::MissingToken do |e|
-      json_response({error: "No token was provided. You cannot be identified."}, :unprocessable_entity)
+      json_response({error: "Missing token"}, :unprocessable_entity)
     end
 
     rescue_from ExceptionHandler::InvalidToken do |e|
-      json_response({error: "Token is not valid"}, :unprocessable_entity)
+      json_response({error: "Invalid token"}, :unprocessable_entity)
     end
 
   end
