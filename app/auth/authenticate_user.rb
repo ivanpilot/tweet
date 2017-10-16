@@ -12,21 +12,10 @@ class AuthenticateUser
   private
   attr_reader :email, :password
 
-  # def authenticated_user
-  #   @user = user
-  #   if password.nil?
-  #     raise ExceptionHandler::MissingPassword
-  #   end
-  #   if password && @user.try(:authenticate, password)
-  #     return @user
-  #   end
-  #   raise ExceptionHandler::AuthenticationError
-  # end
-
   def user
     user = User.find_by(email: email)
     return user if user and user.try(:authenticate, password)
-    raise ExceptionHandler::AuthenticationError
+    raise ExceptionHandler::AuthenticationError, Message.invalid_credentials
   end
 
 end

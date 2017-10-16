@@ -45,7 +45,7 @@ RSpec.describe 'Post', type: :request do
   end
 
   describe 'POST /api/posts' do
-    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", user_id: post_id}} }
+    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", user_id: User.first.id}} }
 
     context 'when post request is valid' do
       before { post "/api/posts", params: valid_attributes }
@@ -69,7 +69,7 @@ RSpec.describe 'Post', type: :request do
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/validation failed/)
+          expect(response.body).to match(/Validation failed/)
         end
       end
 
@@ -81,7 +81,7 @@ RSpec.describe 'Post', type: :request do
         end
 
         it 'returns validation failure message' do
-          expect(response.body).to match(/validation failed/)
+          expect(response.body).to match(/Validation failed/)
         end
       end
     end

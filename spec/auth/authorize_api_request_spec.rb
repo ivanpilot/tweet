@@ -21,7 +21,7 @@ RSpec.describe AuthorizeApiRequest do
 
       context 'when missing token' do
         it 'raises a missing token error' do
-          expect {invalid_request_obj.call} .to raise_error(ExceptionHandler::MissingToken)
+          expect {invalid_request_obj.call} .to raise_error(ExceptionHandler::MissingToken, 'Missing token')
         end
       end
 
@@ -29,7 +29,7 @@ RSpec.describe AuthorizeApiRequest do
         let(:header) { {'Authorization' => JsonWebToken.encode({user_id: 1000})} }
 
         it 'raises an invalid token error' do
-          expect {AuthorizeApiRequest.new(header).call} .to raise_error(ExceptionHandler::InvalidToken)
+          expect {AuthorizeApiRequest.new(header).call} .to raise_error(ExceptionHandler::InvalidToken, 'Invalid token')
         end
       end
 

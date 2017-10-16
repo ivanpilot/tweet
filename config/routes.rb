@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new('v1', true) do
       resources :posts, except: [:new, :edit]
+      #post '/auth/login', to: 'authentication#login'
     end
   end
+
+  post '/auth/login', to: 'authentication#login'
 end
