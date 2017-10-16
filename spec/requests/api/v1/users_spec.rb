@@ -12,10 +12,12 @@ RSpec.describe 'Users API', type: :request do
       before { post '/api/signup', params: valid_attributes.to_json, headers: headers }
 
       it 'creates a new user' do
+        # binding.pry
         expect(response).to have_http_status(201)
       end
 
       it 'returns a success message' do
+        # binding.pry
         expect(json['message']).to match(/Account created successfully/)
       end
 

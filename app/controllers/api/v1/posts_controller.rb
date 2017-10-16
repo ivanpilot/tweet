@@ -2,18 +2,21 @@ class Api::V1::PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
 
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    @posts = current_user.posts
     json_response(@posts)
   end
 
   def create
     #use create! instead of create so it raises an invalid error
-    @post = Post.create!(post_params)
+    # @post = Post.create!(post_params)
+    @post = current_user.posts.create!(post_params)
     json_response(@post, :created)
   end
 
   def show
-    @post = Post.find(params[:id])
+    # @post = Post.find(params[:id])
+    # @post = current_user.posts.find(params[:id])
     json_response(@post)
   end
 
@@ -40,6 +43,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def find_post
-    @post = Post.find(params[:id])
+    # @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 end
