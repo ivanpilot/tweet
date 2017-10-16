@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Post', type: :request do
-  let!(:posts) { FactoryGirl.create_list(:post, 10) }
+  let(:user) { create(:user) }
+  let(:auth_token) { JsonWebToken.encode(user_id: user.id) }
+  let(:headers) { {
+    "Content_Type" => "application/json",
+    "Authorization" => auth_token
+  } }
+  let!(:posts) { FactoryGirl.create_list(:post, 10, user_id: user.id) }
   let(:post_id) { posts.first.id }
 
   describe 'GET /api/posts' do
-    before { get '/api/posts'}
+    before { get '/api/posts', headers: headers}
 
     it 'returns all posts' do
       expect(json).not_to be_empty
@@ -18,7 +24,7 @@ RSpec.describe 'Post', type: :request do
   end
 
   describe 'GET /api/posts/:id' do
-    before { get "/api/posts/#{post_id}" }
+    before { get "/api/posts/#{post_id}", headers: headers }
 
     context 'when the post exists' do
       it 'returns the right post' do
@@ -48,7 +54,7 @@ RSpec.describe 'Post', type: :request do
     let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", user_id: User.first.id}} }
 
     context 'when post request is valid' do
-      before { post "/api/posts", params: valid_attributes }
+      before { post "/api/posts", params: valid_attributes, headers: headers }
 
       it 'creates a new post' do
         expect(json["title"]).to eq('Valid post')
@@ -62,7 +68,7 @@ RSpec.describe 'Post', type: :request do
 
     context 'when post request is invalid' do
       describe 'because title is missing' do
-        before { post "/api/posts", params: { post: {body: "Invalid post"} } }
+        before { post "/api/posts", params: { post: {body: "Invalid post"} }, headers: headers }
 
         it 'returns a status code of 422' do
           expect(response).to have_http_status(422)
@@ -74,7 +80,7 @@ RSpec.describe 'Post', type: :request do
       end
 
       describe 'because body is missing' do
-        before { post "/api/posts", params: { post: {body: "Invalid post"} } }
+        before { post "/api/posts", params: { post: {body: "Invalid post"} }, headers: headers }
 
         it 'returns a status code of 422' do
           expect(response).to have_http_status(422)
@@ -91,7 +97,7 @@ RSpec.describe 'Post', type: :request do
     let(:post_first) { posts.first }
 
     context 'when the record exists' do
-      before { put "/api/posts/#{post_first.id}", params: {post: {title: "Updated Title"} }}
+      before { put "/api/posts/#{post_first.id}", params: {post: {title: "Updated Title"}}, headers: headers }
 
       it 'updates the record' do
         post_first.reload
@@ -109,7 +115,7 @@ RSpec.describe 'Post', type: :request do
     end
 
     context 'when the record does not exists' do
-      before { put "/api/posts/10000", params: {post: {title: "Updated Title"} }}
+      before { put "/api/posts/10000", params: {post: {title: "Updated Title"}}, headers: headers}
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -122,7 +128,7 @@ RSpec.describe 'Post', type: :request do
   end
 
   describe 'DELETE api/posts/:id' do
-    before { delete "/api/posts/#{post_id}" }
+    before { delete "/api/posts/#{post_id}", headers: headers }
 
     context 'when the record exists' do
       it 'returns status code 204' do
@@ -131,7 +137,7 @@ RSpec.describe 'Post', type: :request do
     end
 
     context 'when the record does not exists' do
-      before { delete "/api/posts/100000" }
+      before { delete "/api/posts/100000", headers: headers }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
