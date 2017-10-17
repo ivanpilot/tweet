@@ -8,13 +8,15 @@ class ApiConstraints
   end
 
   def matches?(request)
-    check_headers(request.headers) || default
+    version = check_headers(request.headers) || default
+    # binding.pry
+    version
   end
 
   def check_headers(headers)
     accept = headers[:accept]
-    accept && accept.include?("application/vnd.#{version}+json")
-    @default || req.headers['Accept'].include?("application/vnd.tweet.v#{@version}")
+    accept && accept.include?("application/vnd.tweet.#{version}+json")
+    # @default || req.headers['Accept'].include?("application/vnd.tweet.v#{@version}")
   end
 
 end
