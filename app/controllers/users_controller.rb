@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: :create
+  # skip_before_action :authorize_request, only: :create
 
   def create
+    # binding.pry
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(email: user.email, password: user.password).call
     response = {
