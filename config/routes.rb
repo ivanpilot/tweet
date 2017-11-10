@@ -3,12 +3,14 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api, defaults: {format: 'json'} do
-    scope module: :v2, constraints: ApiConstraints.new('v2') do
-      resources :posts, only: [:index]
-    end
+    # scope module: :v2, constraints: ApiConstraints.new('v2') do
+    #   resources :posts, only: [:index]
+    # end
 
     scope module: :v1, constraints: ApiConstraints.new('v1', true) do
-      resources :posts, except: [:new, :edit]
+      resources :posts, except: [:new, :edit] do
+        resources :comments, only: [:index]
+      end
     end
   end
 

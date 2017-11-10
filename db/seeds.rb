@@ -10,6 +10,6 @@
 #   FactoryGirl.create(:post)
 # end
 
-2.times do
+6.times do
   FactoryGirl.create(:comment)
 end
