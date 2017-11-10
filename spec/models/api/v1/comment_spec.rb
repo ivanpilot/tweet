@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Rspec.describe Comment, type: :model do
+RSpec.describe Comment, type: :model do
 
   it 'has a valid factory' do
     expect(FactoryGirl.create(:comment)).to be_valid
@@ -10,8 +10,8 @@ Rspec.describe Comment, type: :model do
   it {should belong_to :post}
   it {should belong_to :commenter}
   it {should have_db_column :id}
-  it {should have_db_column :comment}
+  it {should have_db_column :description}
   it {should have_db_column :post_id}
-  it {should have_db_column :commenter}
+  it {should have_db_column :commenter_id}
 
 end
