@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :author, class_name: 'User'
   has_many :comments
 
-  validates :title, :body, :user_id, presence: true
+  validates :title, :body, :author_id, presence: true
 
 end

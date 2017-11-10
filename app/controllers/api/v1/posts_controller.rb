@@ -10,8 +10,8 @@ class Api::V1::PostsController < ApplicationController
   def create
     # binding.pry
     #use create! instead of create so it raises an invalid error
-    @post = Post.create!(post_params)
-    # @post = current_user.posts.create!(post_params)
+    # @post = Post.create!(post_params)
+    @post = current_user.posts.create!(post_params)
     json_response(@post, :created)
   end
 
@@ -45,7 +45,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def find_post
-    @post = Post.find(params[:id])
-    # @post = current_user.posts.find(params[:id])
+    # @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 end

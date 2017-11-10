@@ -2,5 +2,5 @@ class Comment < ApplicationRecord
   belongs_to :post
   belongs_to :commenter, class_name: 'User'
 
-  validates :description, presence: true
+  validates :description, :commenter_id, presence: true
 end

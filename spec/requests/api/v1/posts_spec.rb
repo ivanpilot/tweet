@@ -7,7 +7,7 @@ RSpec.describe 'Post', type: :request do
     "Content_Type" => "application/json",
     "Authorization" => auth_token
   } }
-  let!(:posts) { FactoryGirl.create_list(:post, 10, user_id: user.id) }
+  let!(:posts) { FactoryGirl.create_list(:post, 10, author_id: user.id) }
   let(:post_id) { posts.first.id }
 
   describe 'GET /api/posts' do
@@ -51,7 +51,7 @@ RSpec.describe 'Post', type: :request do
   end
 
   describe 'POST /api/posts' do
-    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", user_id: User.first.id}} }
+    let(:valid_attributes) { {post: {title:"Valid post", body:"Valid post body", author_id: User.first.id}} }
 
     context 'when post request is valid' do
       before { post "/api/posts", params: valid_attributes, headers: headers }

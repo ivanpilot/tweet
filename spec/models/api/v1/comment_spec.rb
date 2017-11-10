@@ -7,6 +7,7 @@ RSpec.describe Comment, type: :model do
   end
 
   it {should validate_presence_of :description}
+  it {should validate_presence_of :commenter_id}
   it {should belong_to :post}
   it {should belong_to :commenter}
   it {should have_db_column :id}
