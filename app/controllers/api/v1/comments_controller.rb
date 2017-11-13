@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :find_post, only: [:index, :create, :show]
+  before_action :find_post#, only: [:index, :create, :show]
   before_action :find_comment, only: [:show]
 
   def index
@@ -7,12 +7,13 @@ class Api::V1::CommentsController < ApplicationController
     json_response(@comments)
   end
 
-  # def create
-  #   binding.pry
-  #   #if @user && @user.posts.include(@post)
-  #   @comment = @post.comments.create!(comment_params)
-  #   json_response(@comment, :created)
-  # end
+  def create
+    # binding.pry
+    #if @user && @user.posts.include(@post)
+
+    @comment = @post.comments.create!(comment_params)
+    json_response(@comment, :created)
+  end
 
   def show
     # binding.pry
