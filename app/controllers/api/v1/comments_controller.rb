@@ -1,12 +1,13 @@
 class Api::V1::CommentsController < ApplicationController
   before_action :find_post#, only: [:index, :create, :show]
-  before_action :find_comment, only: [:show]
+  before_action :find_comment, only: [:show, :update]
 
   def index
     @comments = @post.comments if @post
     json_response(@comments)
   end
 
+  #it will change significantly once we implement user loggedin
   def create
     # binding.pry
     #if @user && @user.posts.include(@post)
@@ -17,6 +18,11 @@ class Api::V1::CommentsController < ApplicationController
 
   def show
     # binding.pry
+    json_response(@comment)
+  end
+
+  def update
+    @comment.update(comment_params)
     json_response(@comment)
   end
 

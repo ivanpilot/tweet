@@ -90,7 +90,7 @@ RSpec.describe 'Comment', type: :request do
 
     context 'when a comment is valid' do
       describe 'if a post is valid' do
-        it 'creates a new post' do
+        it 'creates a new comment' do
           expect(json["description"]).to eq('this is a valid comment')
         end
 
@@ -113,7 +113,6 @@ RSpec.describe 'Comment', type: :request do
     end
 
     context 'when a comment is not valid' do
-
       describe 'because no params is provided' do
         let(:attributes) { }
 
@@ -158,6 +157,46 @@ RSpec.describe 'Comment', type: :request do
     end
   end
 
+  describe 'PUT /api/posts/:post_id/comments/:id' do
+    let(:comment_first) { comments.first }
+    let(:attributes) { {comment: {description: "this is an updated comment"}} }
+    before { put "/api/posts/#{tweet_id}/comments/#{comment_first.id}", params: attributes, headers: headers }
 
+    context 'when a comment is valid' do
+      describe 'if a post is valid' do
+        it 'updates a the current comment record' do
+          comment_first.reload
+          expect(json["description"]).to eq('this is an updated comment')
+        end
+
+        it 'returns a status code 200' do
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      describe 'if a post is not valid' do
+        before { put "/api/posts/1000/comments/#{comment_first.id}", params: attributes, headers: headers }
+
+        it 'returns a not found Post message' do
+          expect(response.body).to match(/Couldn't find Post/)
+        end
+
+        it 'returns a status code 404' do
+          expect(response).to have_http_status(404)
+        end
+      end
+    end
+
+    context 'when a comment is not valid' do
+      describe 'because no params is provided' do
+        let(:attributes) { }
+
+        it 'returns a status code 404' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+    end
+  end
 
 end

@@ -32,3 +32,7 @@ Nested under posts routes
 
 ## Validation
 1. Validates description attributes
+
+## Changes in code
+1. controller actions like create and update will need to be modified as the commenter_id and post_id attributes would be automatically assigned meaning that the strong params should only allow for :description attributes
+2. the rspec request specs would need to be adjusted to >> see the request specs for creating a post while user authentication is enforced
