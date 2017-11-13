@@ -1,6 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
   before_action :find_post#, only: [:index, :create, :show]
-  before_action :find_comment, only: [:show, :update]
+  before_action :find_comment, only: [:show, :update, :destroy]
 
   def index
     @comments = @post.comments if @post
@@ -26,6 +26,14 @@ class Api::V1::CommentsController < ApplicationController
     json_response(@comment)
   end
 
+  def destroy
+    @comment.delete
+    @comment = nil
+    # render json: { error: 'Post not found.' }, status: :not_found
+    head(:ok)
+    # json_response()
+  end
+
 
   private
   def comment_params
@@ -38,6 +46,7 @@ class Api::V1::CommentsController < ApplicationController
 
   def find_comment
     @comment = @post.comments.find(params[:id]) if @post
+    # binding.pry
   end
 
 end

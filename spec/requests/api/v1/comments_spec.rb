@@ -195,8 +195,43 @@ RSpec.describe 'Comment', type: :request do
           expect(response).to have_http_status(404)
         end
       end
-
     end
   end
 
+  describe 'DELETE /api/posts/:post_id/comments/:id' do
+    let(:comment_first) { comments.first }
+    before { delete "/api/posts/#{tweet_id}/comments/#{comment_first.id}", headers: headers }
+
+    context 'when a post exists' do
+      describe 'if a comment exists' do
+        it 'delete the current comment' do
+          expect(response).to have_http_status(200)
+        end
+      end
+
+      describe 'if a comment does not exist' do
+        before { delete "/api/posts/#{tweet_id}/comments/1000", headers: headers }
+
+        it 'returns a not found Comment message' do
+          expect(response.body).to match(/Couldn't find Comment/)
+        end
+
+        it 'returns a status code 404' do
+          expect(response).to have_http_status(404)
+        end
+      end
+    end
+
+    context 'when a post does not exist' do
+      before { delete "/api/posts/1000/comments/#{comment_first.id}", headers: headers }
+
+      it 'returns a not found Post message' do
+        expect(response.body).to match(/Couldn't find Post/)
+      end
+
+      it 'returns a status code 404' do
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
 end
