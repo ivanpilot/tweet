@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :find_post#, only: [:index, :create, :show]
+  before_action :find_post
   before_action :find_comment, only: [:show, :update, :destroy]
 
   def index
@@ -9,19 +9,18 @@ class Api::V1::CommentsController < ApplicationController
 
   #it will change significantly once we implement user loggedin
   def create
-    # binding.pry
     #if @user && @user.posts.include(@post)
-
     @comment = @post.comments.create!(comment_params)
     json_response(@comment, :created)
   end
 
   def show
-    # binding.pry
     json_response(@comment)
   end
 
+  #it will change significantly once we implement user loggedin
   def update
+    #if @user && @user.posts.include(@post)
     @comment.update(comment_params)
     json_response(@comment)
   end
@@ -29,9 +28,7 @@ class Api::V1::CommentsController < ApplicationController
   def destroy
     @comment.delete
     @comment = nil
-    # render json: { error: 'Post not found.' }, status: :not_found
     head(:ok)
-    # json_response()
   end
 
 
