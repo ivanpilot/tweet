@@ -3,6 +3,7 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    # binding.pry
     # @posts = current_user.posts
     json_response(@posts)
   end
@@ -41,7 +42,7 @@ class Api::V1::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :author_id)
+    params.require(:post).permit(:title, :body, :react_id, :author_id)
   end
 
   def find_post

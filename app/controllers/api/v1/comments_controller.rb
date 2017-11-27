@@ -34,16 +34,22 @@ class Api::V1::CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:description, :post_id, :commenter_id)
+    params.require(:comment).permit(:description, :post_id, :commenter_id, :react_id)
   end
 
   def find_post
-    @post = Post.find(params[:post_id])
+    raw_post_id = params[:post_id]
+    post_id = raw_post_id.to_i.to_s == raw_post_id ? raw_post_id : nil
+    @post = Post.find(post_id)
+    # @post = Post.find(params[:post_id])
   end
 
   def find_comment
     @comment = @post.comments.find(params[:id]) if @post
-    # binding.pry
   end
+
+  # def post_params
+  #   params.require(:post_id)#.permit(:post_id)
+  # end
 
 end
