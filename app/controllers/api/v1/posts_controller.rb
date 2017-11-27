@@ -1,15 +1,19 @@
 class Api::V1::PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
 
+  def search
+    term = params[:term] || nil
+    @post = Post.where('react_id = ?', "#{term}") if term
+    json_response(@post)
+  end
+
   def index
     @posts = Post.all
-    # binding.pry
     # @posts = current_user.posts
     json_response(@posts)
   end
 
   def create
-    # binding.pry
     #use create! instead of create so it raises an invalid error
     @post = Post.create!(post_params)
     # @post = current_user.posts.create!(post_params)
@@ -17,7 +21,6 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
-    # binding.pry
     # @post = Post.find(params[:id])
     # @post = current_user.posts.find(params[:id])
     json_response(@post)
