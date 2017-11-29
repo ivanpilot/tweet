@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new('v1', true) do
       resources :posts, except: [:new, :edit] do
         get 'search', on: :collection
-        resources :comments, only: [:index, :create, :show, :update, :destroy]
+        resources :comments, except: [:new, :edit] do
+          get 'search', on: :collection
+        end
       end
     end
   end

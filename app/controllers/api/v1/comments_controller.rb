@@ -2,6 +2,13 @@ class Api::V1::CommentsController < ApplicationController
   before_action :find_post
   before_action :find_comment, only: [:show, :update, :destroy]
 
+  def search
+    term = params[:term] || nil
+    comment = Comment.where('react_id = ?', "#{term}").first if term
+    @comment = comment if @post && @post.comments.include?(comment)
+    json_response(@comment)
+  end
+
   def index
     @comments = @post.comments if @post
     json_response(@comments)
