@@ -36,7 +36,7 @@ class Api::V1::PostsController < ApplicationController
     if !@post
       render json: { error: 'Post not found.' }, status: :not_found
     else
-      @post.delete
+      @post.destroy
       @post = nil
       head(:ok)
     end
