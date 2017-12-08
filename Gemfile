@@ -25,7 +25,7 @@ gem 'puma', '~> 3.7'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', '~> 1.0', '>= 1.0.1', :require => 'rack/cors'
 gem 'rack-attack', '~> 5.0', '>= 5.0.1'
-gem 'redis-rails', '~> 5.0', '>= 5.0.2'
+# gem 'redis-rails', '~> 5.0', '>= 5.0.2'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.6'
 gem 'friendly_id', '~> 5.2', '>= 5.2.3'
